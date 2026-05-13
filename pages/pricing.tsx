@@ -42,7 +42,7 @@ export default function Pricing() {
         {/* NAV */}
         <nav style={{ borderBottom: "1px solid #0f0f28", padding: "0 24px", height: 56, display: "flex", alignItems: "center", justifyContent: "space-between", maxWidth: 900, margin: "0 auto" }}>
           <Link href="/" style={{ fontFamily: "'Bebas Neue'", fontSize: 22, letterSpacing: 5, color: "#c9a227" }}>ZONE ORACLE</Link>
-          {isActive ? (
+          {isSignedIn ? (
             <button onClick={() => router.push("/dashboard")} style={{ background: "#c9a22720", border: "1px solid #c9a22750", borderRadius: 6, padding: "7px 18px", color: "#c9a227", fontSize: 9, letterSpacing: 2 }}>
               OPEN APP →
             </button>
@@ -80,23 +80,24 @@ export default function Pricing() {
                     </div>
                   ))}
                 </div>
-                                 <Link href="/sign-up">
-  <button>
-    style={{
-      width: "100%",
-      padding: "12px 0",
-      background: "#c9a22718",
-      border: "1px solid #c9a22750",
-      borderRadius: 8,
-      color: "#c9a227",
-      fontSize: 9,
-      letterSpacing: 2,
-      cursor: "pointer",
-    }}
-  >
-    START FREE
-  </button>
-</Link>
+                <Link href="/sign-up">
+                  <button style={{
+                    width: "100%",
+                    padding: "12px 0",
+                    background: "#c9a22718",
+                    border: "1px solid #c9a22750",
+                    borderRadius: 8,
+                    color: "#c9a227",
+                    fontSize: 9,
+                    letterSpacing: 2,
+                    cursor: "pointer",
+                  }}>
+                    START FREE
+                  </button>
+                </Link>
+              </div>
+            ))}
+          </div>
           <div style={{ textAlign: "center", marginTop: 30, fontSize: 7, color: "#1a1a2e", lineHeight: 2, letterSpacing: .5 }}>
             Payments processed securely by Stripe · Thai baht pricing · SSL encrypted<br />
             Zone Oracle is for educational purposes only. Not financial advice.
