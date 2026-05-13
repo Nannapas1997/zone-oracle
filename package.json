@@ -11,9 +11,11 @@
   "dependencies": {
     "@clerk/nextjs": "^5.1.0",
     "@stripe/stripe-js": "^3.4.0",
+    "@types/micro": "^7.3.7",
     "axios": "^1.7.2",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "micro": "^10.0.1",
     "next": "^14.2.35",
     "react": "^18",
     "react-dom": "^18",
