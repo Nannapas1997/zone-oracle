@@ -13,12 +13,9 @@ export default function SignInPage() {
     setLoading(true);
     setError("");
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      callbackUrl: "/dashboard",
-      redirect: false,
-    });
+    const result = await signIn("google", {
+      callbackUrl: "/",
+    })
 
     if (result?.error) {
       setError("Email หรือ Password ไม่ถูกต้อง");
@@ -50,7 +47,9 @@ export default function SignInPage() {
 
         {/* Login ด้วย Google */}
         <button
-          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+          onClick={() => signIn("google", {
+            callbackUrl: "/",
+          })}
           style={{
             width: "100%",
             padding: "0.75rem",
