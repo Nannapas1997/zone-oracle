@@ -1042,7 +1042,7 @@ function TradeJournal({ lang, prefillZone, onClearPrefill }) {
       setShowForm(true);
       onClearPrefill();
     }
-  },[prefillZone]);
+  },[prefillZone, onClearPrefill]);
 
   function saveEntry(){
     if(!form.entry) return;
@@ -1253,11 +1253,13 @@ function DashboardApp() {
     useEffect(() => {
   async function fetchMT5Price() {
     try {
-      const res = await fetch("http://192.168.1.112:3002/price");
+      const priceUrl = process.env.NEXT_PUBLIC_PRICE_SERVER_URL || "http://localhost:3002";
+      const res = await fetch(`${priceUrl}/price`);
       const data = await res.json();
 
-      if (data.bid) {
+      if (data.bid && Number(data.bid) > 0) {
         setLive(Number(data.bid));
+        setHasMT5(true); // บอกว่ามีราคา MT5 จริง — หยุดสุ่มราคา
       }
     } catch (err) {
       console.log(err);
@@ -1332,13 +1334,15 @@ function DashboardApp() {
   const above = displayZones.filter(z=>z.type==="R").sort((a,b)=>a.p-b.p);
   const below = displayZones.filter(z=>z.type==="S").sort((a,b)=>b.p-a.p);
 
+  const [hasMT5, setHasMT5] = useState(false);
+
   useEffect(()=>{
     const tickMs = 800;
     const delta = tfVol * 0.12;
     const iv = setInterval(()=>{
-      const d = rnd(-delta, delta);
+      const d = hasMT5 ? 0 : rnd(-delta, delta);
       setLive(p=>{
-        const np = Math.round((p+d)*100)/100;
+        const np = hasMT5 ? p : Math.round((p+d)*100)/100;
         displayZones.forEach(z=>{
           if(Math.abs(np-z.p)<2){
             setTouchedZone(z.p);
@@ -1372,12 +1376,12 @@ function DashboardApp() {
       });
     }, tickMs);
     return ()=>clearInterval(iv);
-  }, [alertZones, alertConditions, displayZones, lang, rsiV, tf, tfVol]);
+  }, [alertZones, alertConditions, displayZones, hasMT5, lang, rsiV, tf, tfVol]);
 
   function pickZone(z){
     setSelZone(z); setLoading(true); setResult(null); setTab("analysis");
     setTimeout(()=>{
-      setResult(computeResult(z, rsiV, macdV, bbV, e20V, e50V, z.p, lang, candles.length));
+      setResult(computeResult(z, rsiV, macdV, bbV, e20V, e50V, live, lang, candles.length));
       setLoading(false);
     }, 800);
   }
