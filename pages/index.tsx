@@ -33,13 +33,21 @@ export default function Landing() {
             <Link href="/pricing" style={{ fontSize: 9, color: "#555", letterSpacing: 2, padding: "8px 14px" }}>PRICING</Link>
             {/* เรียกใช้ signIn() ของ NextAuth */}
             <button 
-              onClick={() => signIn()}
+             onClick={() =>
+              signIn("google", {
+                callbackUrl: "/",
+              })
+            }
               style={{ background: "transparent", border: "1px solid #c9a22740", borderRadius: 6, padding: "7px 18px", color: "#c9a227", fontSize: 9, letterSpacing: 2, cursor: "pointer" }}
             >
               LOG IN
             </button>
             <button 
-              onClick={() => signIn()}
+             onClick={() =>
+              signIn("google", {
+                callbackUrl: "/",
+              })
+            }
               style={{ background: "#c9a22720", border: "1px solid #c9a22760", borderRadius: 6, padding: "7px 18px", color: "#c9a227", fontSize: 9, letterSpacing: 2, cursor: "pointer" }}
             >
               START FREE
@@ -57,7 +65,11 @@ export default function Landing() {
             Real-time support & resistance zones for XAUUSD — backed by institutional liquidity analysis, multi-timeframe confluence, and historical zone memory.
           </p>
           <button 
-            onClick={() => signIn()}
+           onClick={() =>
+            signIn("google", {
+              callbackUrl: "/",
+            })
+          }
             style={{ background: "#c9a22718", border: "1px solid #c9a22750", borderRadius: 8, padding: "14px 36px", color: "#c9a227", fontSize: 11, letterSpacing: 3, cursor: "pointer" }}
           >
             START FREE TRIAL →
