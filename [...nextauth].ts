@@ -56,9 +56,6 @@ export const authOptions: NextAuthOptions = {
     },
   },
 
-  pages: {
-    signIn: "/sign-in",  // หน้า login ของเรา
-  },
 
   secret: process.env.NEXTAUTH_SECRET,
 };
