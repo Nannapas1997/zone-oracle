@@ -1,15 +1,23 @@
+import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
+
 export default function SignInPage() {
-    return (
-      <div style={{ padding: "40px", textAlign: "center" }}>
-        <h1>เข้าสู่ระบบ</h1>
-  
-        <button
-          onClick={() => {
-            window.location.href = "/api/auth/signin/google";
-          }}
-        >
-          Sign in with Google
-        </button>
-      </div>
-    );
-  }
+  const router = useRouter();
+  const { error } = router.query;
+
+  return (
+    <div style={{ padding: 40, textAlign: "center" }}>
+      <h1>เข้าสู่ระบบ</h1>
+
+      {error && (
+        <p style={{ color: "red" }}>
+          Error: {error}
+        </p>
+      )}
+
+      <button onClick={() => signIn("google", { callbackUrl: "/" })}>
+        Sign in with Google
+      </button>
+    </div>
+  );
+}
